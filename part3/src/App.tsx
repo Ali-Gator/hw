@@ -1,12 +1,27 @@
 import './App.css';
 import { TonConnectButton } from '@tonconnect/ui-react';
+import { useCounterContract } from './hooks/useCounterContract';
 
 function App() {
-    return (
-        <div>
-            <TonConnectButton />
+  const { value, address } = useCounterContract();
+
+  return (
+    <div className='App'>
+      <div className='Container'>
+        <TonConnectButton />
+
+        <div className='card'>
+          <b>Counter Address</b>
+          <div className='Hint'>{address?.slice(0, 30) + '...'}</div>
         </div>
-    );
+
+        <div className='card'>
+          <b>Counter Value</b>
+          <div>{value ?? 'Loading...'}</div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default App;
+export default App
