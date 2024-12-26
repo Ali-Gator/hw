@@ -40,9 +40,9 @@ jobs:
           # its hash as a part of the cache key.
           # https://github.com/actions/setup-node#caching-packages-dependencies
           cache-dependency-path: "./part3/package-lock.json"
-      - name: Change working directory
-        run: cd part3
       - name: Install dependencies
+        with:
+          path: './part3'
         run: npm install
       - name: Build
         run: npm run build
