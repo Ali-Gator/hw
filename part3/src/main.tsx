@@ -5,7 +5,7 @@ import { TonConnectUIProvider } from '@tonconnect/ui-react';
 import { StrictMode } from 'react';
 
 // this manifest is used temporarily for development purposes
-const manifestUrl = 'https://Ali-Gator.github.io/hw/tonconnect-manifest.json';
+const manifestUrl = 'https://ali-gator.github.io/hw/tonconnect-manifest.json';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
     <TonConnectUIProvider manifestUrl={manifestUrl}>
