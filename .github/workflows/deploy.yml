@@ -30,13 +30,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Change working directory
-        run: cd part3
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
+          # The action defaults to search for the dependency file
+          # (package-lock.json or yarn.lock) in the repository root, and uses
+          # its hash as a part of the cache key.
+          # https://github.com/actions/setup-node#caching-packages-dependencies
+          cache-dependency-path: "./part3/package-lock.json"
+      - name: Change working directory
+        run: cd part3
       - name: Install dependencies
         run: npm ci
       - name: Build
