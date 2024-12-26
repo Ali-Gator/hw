@@ -41,9 +41,7 @@ jobs:
           # https://github.com/actions/setup-node#caching-packages-dependencies
           cache-dependency-path: "./part3/package-lock.json"
       - name: Install dependencies
-        with:
-          path: './part3'
-        run: npm install
+        run: cd part3 && npm install
       - name: Build
         run: npm run build
       - name: Setup Pages
