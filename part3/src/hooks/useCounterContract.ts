@@ -2,16 +2,12 @@ import { useEffect, useState } from 'react';
 import Counter from '../contracts/Counter';
 import { useTonClient } from './useTonClient';
 import { useAsyncInitialize } from './useAsyncInitialize';
-import { useTonConnect } from './useTonConnect';
 import { Address, OpenedContract } from '@ton/core';
 import { contractCouterAddress } from '../../constants.ts';
 
 export function useCounterContract() {
   const client = useTonClient();
-  const [val, setVal] = useState<null | string>();
-  const { sender } = useTonConnect();
-
-  const sleep = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
+  const [val, setVal] = useState<null | number>(null);
 
   const counterContract = useAsyncInitialize(async () => {
     if (!client) return;
@@ -26,9 +22,7 @@ export function useCounterContract() {
       if (!counterContract) return;
       setVal(null);
       const val = await counterContract.getCounter();
-      setVal(val.toString());
-      await sleep(5000); // sleep 5 seconds and poll value again
-      getValue();
+      setVal(Number(val));
     }
     getValue();
   }, [counterContract]);
@@ -36,8 +30,5 @@ export function useCounterContract() {
   return {
     value: val,
     address: counterContract?.address.toString(),
-    sendIncrement: () => {
-      return counterContract?.sendIncrement(sender);
-    },
   };
 }
